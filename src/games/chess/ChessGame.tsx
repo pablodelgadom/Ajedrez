@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useChessGame } from './logic/useChessGame';
 import { Chessboard } from './components/Chessboard';
 
-export const ChessGame: React.FC = () => {
+interface ChessGameProps {
+    onBack: () => void;
+}
+
+export const ChessGame: React.FC<ChessGameProps> = ({ onBack }) => {
     const [playerColor, setPlayerColor] = useState<'w' | 'b'>('w');
     const [difficulty, setDifficulty] = useState(10);
 
@@ -68,7 +72,23 @@ export const ChessGame: React.FC = () => {
         <div style={{ width: '100%', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '600px', alignItems: 'center', marginBottom: '1rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Chess vs AI</h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <button
+                        onClick={onBack}
+                        style={{
+                            padding: '0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: 'var(--color-text-secondary)',
+                        }}
+                        title="Back to Menu"
+                    >
+                        ←
+                    </button>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Chess vs AI</h2>
+                </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <button
                         onClick={handleRestart}
