@@ -81,7 +81,10 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
     useEffect(() => {
         if (game.isGameOver()) return;
 
+        console.log(`Turn: ${game.turn()}, Player: ${playerColor}`);
+
         if (game.turn() !== playerColor) {
+            console.log("AI Turn. Analyzing...");
             // AI's turn
             // Small delay for realism
             const timer = setTimeout(() => {
