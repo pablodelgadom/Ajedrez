@@ -45,13 +45,11 @@ export const Chessboard: React.FC<ChessboardProps> = ({ game, onMove, lastMove, 
             const piece = game.get(square);
             if (piece) { // Allow selecting any piece to see potential moves? or only own?
                 // Standard behavior: select own color pieces
-                if (piece.color === game.turn()) { // Only select current turn color
-                    // And strictly, we might want to restrict to playerColor if logic enforces it
-                    // But let's allow "Examining" board too?
-                    // Simplest: only allow selecting pieces of the side whose turn it is.
+                // Restrict selection to player's color
+                if (piece.color === game.turn() && piece.color === playerColor) {
                     setSelectedSquare(square);
                 } else {
-                    // Clicked opponent piece, maybe capture intent? nothing.
+                    // Clicked opponent piece or not their turn
                     setSelectedSquare(null);
                 }
             } else {
