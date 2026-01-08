@@ -1,0 +1,101 @@
+.boardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 4px solid var(--border-color);
+    background-color: var(--color-board-light);
+}
+
+.square {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.square.dark {
+    background-color: var(--color-board-dark);
+}
+
+.square.light {
+    background-color: var(--color-board-light);
+}
+
+.square.selected {
+    background-color: var(--color-highlight) !important;
+}
+
+.square.lastMove {
+    background-color: rgba(255, 255, 80, 0.5) !important;
+}
+
+.square.check {
+    background-color: var(--color-check) !important;
+    /* Radial gradient for nicer look? */
+    background: radial-gradient(circle, var(--color-check) 40%, transparent 80%);
+}
+
+.square.validMove::after {
+    content: '';
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+}
+
+.square.validAttack::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.piece {
+    width: 85%;
+    height: 85%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    /* Let clicks pass to square for now */
+    transition: transform 0.2s ease;
+}
+
+/* Animations */
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.piece.animate {
+    animation: popIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
