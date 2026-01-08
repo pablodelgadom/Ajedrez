@@ -13,7 +13,7 @@ export class Engine {
 
     public init() {
         try {
-            this.worker = new Worker('/engine/stockfish-17.1-lite-51f59da.js');
+            this.worker = new Worker('/engine/stockfish-17.1-lite-single-03e3232.js');
             this.worker.onerror = (e) => {
                 console.error("Stockfish Worker Error:", e);
             };
