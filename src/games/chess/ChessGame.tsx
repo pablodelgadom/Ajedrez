@@ -11,8 +11,11 @@ export const ChessGame: React.FC = () => {
         playerColor
     });
 
+    const [isGameStarted, setIsGameStarted] = useState(false);
+
     const handleRestart = () => {
         resetGame();
+        setIsGameStarted(true);
     };
 
     const getStatusText = () => {
@@ -23,6 +26,43 @@ export const ChessGame: React.FC = () => {
             default: return `${turn === 'w' ? "White" : "Black"}'s turn`;
         }
     };
+
+    if (!isGameStarted) {
+        return (
+            <div style={{
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '2rem',
+                backgroundColor: 'var(--color-bg-primary)'
+            }}>
+                <h1 style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-text-primary)' }}>Chess vs AI</h1>
+                <p style={{ color: 'var(--color-text-secondary)' }}>Ready to challenge the engine?</p>
+                <button
+                    onClick={() => setIsGameStarted(true)}
+                    style={{
+                        fontSize: '1.5rem',
+                        padding: '1rem 3rem',
+                        backgroundColor: 'var(--color-accent-primary)',
+                        color: 'white',
+                        borderRadius: 'var(--radius-full)',
+                        border: 'none',
+                        boxShadow: 'var(--shadow-lg)',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        transition: 'transform 0.2s ease'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    Start Game
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div style={{ width: '100%', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>

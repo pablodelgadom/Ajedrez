@@ -14,7 +14,11 @@ export class Engine {
     public init() {
         try {
             this.worker = new Worker('/engine/stockfish-17.1-lite-51f59da.js');
+            this.worker.onerror = (e) => {
+                console.error("Stockfish Worker Error:", e);
+            };
             this.worker.onmessage = (event) => {
+                console.log("SF:", event.data); // Debug logging
                 this.onMessage(event.data);
             };
             this.worker.postMessage('uci');
