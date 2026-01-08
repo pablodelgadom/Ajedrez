@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChessGame } from './games/chess/ChessGame';
 import { Home } from './pages/Home';
 
