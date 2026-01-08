@@ -17,6 +17,7 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
     const [status, setStatus] = useState<GameStatus>('playing');
     const [turn, setTurn] = useState<Color>('w');
     const [lastMove, setLastMove] = useState<Move | null>(null);
+    const [isThinking, setIsThinking] = useState(false);
 
     const engine = useRef<Engine | null>(null);
 
@@ -26,6 +27,7 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
             // Parse engine output
             // Example: 'bestmove e2e4'
             if (data.startsWith('bestmove')) {
+                setIsThinking(false);
                 const moveStr = data.split(' ')[1];
                 if (moveStr && moveStr !== '(none)') {
                     makeAMove({
@@ -85,6 +87,7 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
 
         if (game.turn() !== playerColor) {
             console.log("AI Turn. Analyzing...");
+            setIsThinking(true);
             // AI's turn
             // Small delay for realism
             const timer = setTimeout(() => {
@@ -102,6 +105,7 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
         setLastMove(null);
         setStatus('playing');
         setTurn('w');
+        setIsThinking(false);
         engine.current?.newGame();
     };
 
@@ -112,6 +116,7 @@ export function useChessGame({ difficulty = 10, playerColor = 'w' }: UseChessGam
         status,
         lastMove,
         history,
+        isThinking,
         makeMove: makeAMove,
         resetGame
     };

@@ -6,7 +6,7 @@ export const ChessGame: React.FC = () => {
     const [playerColor, setPlayerColor] = useState<'w' | 'b'>('w');
     const [difficulty, setDifficulty] = useState(10);
 
-    const { game, status, turn, makeMove, lastMove, resetGame } = useChessGame({
+    const { game, status, turn, makeMove, lastMove, resetGame, isThinking } = useChessGame({
         difficulty,
         playerColor
     });
@@ -102,7 +102,10 @@ export const ChessGame: React.FC = () => {
                     backgroundColor: turn === 'w' ? '#fff' : '#000',
                     border: '1px solid #888'
                 }} />
-                <span style={{ fontWeight: 500 }}>{getStatusText()}</span>
+                <span style={{ fontWeight: 500 }}>
+                    {getStatusText()}
+                    {isThinking && <span style={{ marginLeft: '0.5rem', color: 'var(--color-accent-primary)', fontSize: '0.9em' }}>(Thinking...)</span>}
+                </span>
 
                 {/* Settings Controls */}
                 <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem', fontSize: '0.9rem' }}>
